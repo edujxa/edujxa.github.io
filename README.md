@@ -2,6 +2,8 @@
 
 A small, text-first personal website with an about page, writing archive, and two sample posts. Everything served to the browser is plain HTML and CSS in `dist/`; no dependencies or JavaScript are required.
 
+The colors match the owner's Flexoki Dark settings in Zed and Hyper: background `#100F0F`, text `#CECDC3`, muted text `#878580`, borders `#282726`, and cyan links `#3AA99F`.
+
 The name, biography, posts, and contact information are placeholders for this mockup. The GitHub link opens GitHub's homepage. Replace these before making the site public and remove the mockup footer labels.
 
 ## Preview
