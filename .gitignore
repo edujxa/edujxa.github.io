@@ -1,2 +1,13 @@
 .DS_Store
 *.log
+
+# Local authoring notes and unpublished drafts
+.local/
+/*-writing-notes.md
+
+# Credentials and local environment
+.env
+.env.*
+*.pem
+*.key
+__pycache__/

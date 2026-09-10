@@ -2,44 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Edu's personal website. A little about me and a few things I've written.">
-  <title>Edu</title>
+  <meta name="description" content="Eduardo Mena — Security Engineer at JPMorganChase. Hardware hacking, CTFs, and Muay Thai.">
+  <title>EDUJXA — Projects, records, and things I’m figuring out</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="site">
     <header class="header">
-      <a class="name" href="./">Edu</a>
+      <a class="name" href="./">edujxa</a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="./" aria-current="page">About</a>
-        <a href="./writing/">Writing</a>
+        <a href="./" aria-current="page">about</a>
+        <a href="./writing/">blog</a>
       </nav>
     </header>
     <main id="main">
       <section class="intro" aria-labelledby="about-heading">
-        <h1 id="about-heading">Hi, I’m Edu.</h1>
-        <p>I like building useful things and understanding how they work.</p>
-        <p>I’m interested in software, good questions, and making things a little simpler. This is where I keep notes on what I’m learning and the occasional longer thought.</p>
-        <p>Some ideas are finished. Most are still taking shape.</p>
-        <div class="contact">
-          <a href="https://github.com/">GitHub</a>
-          <a href="mailto:you@example.com">you@example.com</a>
-        </div>
+        <h1 id="about-heading" class="about-name">EDUJXA</h1>
+        <p class="name-subtext">Projects, records, and things I’m figuring out.</p>
+        <ul class="contact">
+          <li><a href="mailto:edujxa@gmail.com">edujxa@gmail.com</a></li>
+          <li><a href="https://www.instagram.com/edujxa/">Instagram · @edujxa</a></li>
+          <li><a href="https://www.linkedin.com/in/eduardo-mena-465677175/">LinkedIn</a></li>
+        </ul>
+      </section>
+      <section class="about-section" aria-labelledby="professional-heading">
+        <h2 id="professional-heading">Professional</h2>
+        <p>Current Security Engineer for JPMorganChase.</p>
+      </section>
+      <section class="about-section" aria-labelledby="achievements-heading">
+        <h2 id="achievements-heading">Achievements</h2>
+        <p>I recently won the <a href="https://0x3fcube.com/">?Cube CTF</a> at DEF CON 34.</p>
+      </section>
+      <section class="about-section" aria-labelledby="interests-heading">
+        <h2 id="interests-heading">Interests</h2>
+        <p>I love hardware hacking, reverse engineering (getting better but super fun), and general tinkering.</p>
+        <p>Motorcycles are my preferred form of transportation, especially in the city. I have a 2024 CB650R with a full titanium exhaust.</p>
+        <p>Music is my passion—check out my <a href="https://www.instagram.com/edujxa/">Instagram page</a>. I mainly focus on vinyl; check out my most recent mix <a href="https://www.youtube.com/watch?v=-S1l0QesAMg&amp;t=1405s">here</a>.</p>
+        <p>Hitting pads in Muay Thai is fun. Glory to the Thais.</p>
       </section>
       <section class="writing" aria-labelledby="writing-heading">
         <div class="section-heading">
-          <h2 id="writing-heading">Recent writing</h2>
+          <h2 id="writing-heading">Projects and Blog Posts</h2>
           <a class="all-posts" href="./writing/">All posts</a>
         </div>
         <ul class="post-list">
-          <li><time datetime="2026-09-09">Sep 9, 2026</time><a href="./writing/a-small-place-on-the-web/">A small place on the web</a></li>
-          <li><time datetime="2026-09-02">Sep 2, 2026</time><a href="./writing/notes-on-keeping-things-simple/">Notes on keeping things simple</a></li>
+          <li><time datetime="2026-09-09">Sep 9, 2026</time><a href="./writing/reverse-engineering-maschine-mk3/">Reverse engineering my Maschine MK3</a></li>
+          <li><time datetime="2026-09-09">Sep 9, 2026</time><a href="./writing/re-traktor-x1/">A Xone, Phone, Traktor X1 and a dream</a></li>
         </ul>
       </section>
     </main>
-    <footer class="footer"><span>Edu</span><span>Mockup · sample bio &amp; posts</span></footer>
+    <footer class="footer"><span>edujxa</span></footer>
   </div>
 </body>
 </html>

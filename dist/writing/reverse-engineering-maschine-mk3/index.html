@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Notes from reverse engineering the Maschine MK3: custom display graphics, firmware acquisition, and a Flipper Zero JTAG connection.">
+  <title>Reverse engineering my Maschine MK3 — edujxa</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site">
+    <header class="header">
+      <a class="name" href="../../">edujxa</a>
+      <nav class="nav" aria-label="Main navigation"><a href="../../">about</a><a href="../">blog</a></nav>
+    </header>
+    <main id="main" class="article">
+      <a class="back" href="../">← All writing</a>
+      <article>
+        <h1>Reverse engineering my Maschine MK3</h1>
+        <div class="article-meta"><time datetime="2026-09-09">September 9, 2026</time></div>
+        <p>Recently, I wanted to test my hardware reverse engineering skills. I had a Maschine MK3 lying around, so I decided to see how far I could get with dumping its firmware and exploring what I could access on the device.</p>
+        <p>I used Codex throughout the investigation. Part of the motivation was to test Daybreak Blue’s capabilities on a real hardware reverse engineering project and see how it could help me work through the device’s debug interfaces and firmware.</p>
+        <p>The following prompt gave me the best results:<br>
+          <code>/goal let it rip</code> :)</p>
+        <p>That became <a href="https://github.com/edujxa/re-maschine">re-maschine</a>: an investigation that took me from the USB update interface to an exposed debug connection and, eventually, readable processor firmware.</p>
+        <p>I’m not an expert, nor do I claim to understand everything below as fact. I’m simply a man with some ammunition and some tokens to burn—roughly 2.65 billion, by my estimate.</p>
+        <h2>Giving Codex an arm</h2>
+        <p>What worked well for me was giving Codex CLI access to a Flipper Zero and letting it act as an arm into the hardware. In my setup, the Flipper connected the computer to the MK3’s signals and debug interface, so Codex could help run measurements, inspect the results, and work through the next step. I handled the physical wiring and board connections.</p>
+        <figure class="article-photo">
+          <img src="../../images/maschine-mk3-jtag.jpeg" width="768" height="1024" alt="An opened Maschine MK3 with jumper wires connecting its circuit board to a Flipper Zero debug probe.">
+          <figcaption>My MK3 on the bench, with the Flipper Zero wired up for the investigation.</figcaption>
+        </figure>
+        <h2>Finding a way in</h2>
+        <p>I started by looking at how the MK3 talked to the computer and how its update process worked. That gave me a copy of what appeared to be the encrypted firmware update data, but I couldn’t do much with it yet.</p>
+        <p>From there, I opened the device and started looking at the connections on the board. Some of the labels and chip documentation pointed toward a debug interface worth exploring. There was a fair amount of checking assumptions before I got a useful response.</p>
+        <p>I didn’t have a multimeter handy, so part of the discovery involved some fun, janky resistor harnessing with the Flipper to help figure out what was going on with the board’s signals.</p>
+        <h2>Modifying a Flipper app for the job</h2>
+        <p>One of my first attempts was to listen for messages from the board as it started up. I didn’t get anything useful, so I wanted a better way to see whether there was activity on the connection.</p>
+        <p>I adapted an existing Flipper logic-analyzer app into <a href="https://github.com/edujxa/re-maschine/tree/main/tools/flipper/mk3-edge-timer">MK3 Edge Timer</a>, building on <a href="https://github.com/g3gg0/flipper-logic_analyzer">g3gg0’s work</a>. The changes helped it communicate with my computer and record the timing of signal changes. I also added a small companion tool to make those recordings easier to inspect.</p>
+        <p>As the investigation moved toward JTAG, I added a few checks to help understand the board’s electrical behavior and why the connection wasn’t responding. The custom app became a useful troubleshooting tool, even though the original attempt to find readable startup messages didn’t pan out.</p>
+        <h2>Getting the debug connection working</h2>
+        <p>For the actual debug connection, I used DAP Link on the Flipper and OpenOCD on the computer. JTAG is an interface that can be used to inspect and debug hardware. In this case, it looked like a possible way to reach the processor inside the MK3.</p>
+        <p>I worked through the wiring, checked the signals, and investigated how the board selected between its debug paths. The early attempts didn’t return much. After sorting out the connections and changing that selection, I started getting responses that lined up with the processor I was trying to reach.</p>
+        <p>That was enough to try a small memory read before moving on to a larger dump.</p>
+        <h2>Getting a firmware dump</h2>
+        <p>With the connection working, I was able to read the processor’s stored firmware. I repeated the read and compared the files to see whether the result was consistent. One attempt ran into a timeout, but after adjusting that, I ended up with two complete copies that matched.</p>
+        <p>Unlike the earlier update data, this contained recognizable names and what looked like executable code. That gave me much more to investigate. The reads were done without writing new firmware, and the device continued operating during the process.</p>
+        <h2>What I took away</h2>
+        <p>My understanding from the dump and the follow-up analysis is that I had reached the processor firmware and could start piecing together parts of the startup and update process. There are still gaps in that picture, and I’d treat the notes as a record of the investigation rather than a complete explanation of how the MK3 works.</p>
+        <p>I didn’t get access to every part of the device or break all of its protections. Some of its contents remained encrypted, and getting a readable dump was only the beginning of understanding what the code does.</p>
+        <p>Along the way, I also got a custom image onto the left display. I’d like to build toward a fuller Ableton integration, but for now, this was a chance to learn, adapt a few tools, and see how far I could get with Codex and hardware I already owned.</p>
+        <p>The research notes and tools are in the repository if you want to follow the details. The firmware files themselves remain private.</p>
+        <h2>Project notes</h2>
+        <p>More detail on the experiments is in the <a href="https://github.com/edujxa/re-maschine/blob/main/docs/research/2026-08-20-display-bringup.md">display bring-up notebook</a>, <a href="https://github.com/edujxa/re-maschine/blob/main/docs/research/2026-08-20-firmware-acquisition.md">firmware acquisition notebook</a>, and <a href="https://github.com/edujxa/re-maschine/blob/main/docs/research/2026-08-21-plaintext-envm.md">plaintext eNVM notebook</a>.</p>
+      </article>
+    </main>
+    <footer class="footer"><span>edujxa</span></footer>
+  </div>
+</body>
+</html>
