@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="rcclone is Eduardo Mena's personal application for accessing his Google Drive through rclone on his own computer.">
+  <title>rcclone — Personal Google Drive access</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site">
+    <header class="header">
+      <a class="name" href="./rclone.html">rcclone</a>
+      <nav class="nav" aria-label="Application navigation">
+        <a href="./rclone.html" aria-current="page">overview</a>
+        <a href="./rclone-privacy.html">privacy</a>
+      </nav>
+    </header>
+    <main id="main" class="article">
+      <h1>Personal Google Drive access</h1>
+      <p class="article-meta">rcclone · Maintained by Eduardo Mena</p>
+      <p>rcclone is my personal Google OAuth application for using the open-source <a href="https://rclone.org/">rclone</a> tool with my own Google Drive account.</p>
+      <p>It lets me access my Drive files as a mounted folder on my computer and manage them with rclone. This application is for my personal use.</p>
+      <h2>How it works</h2>
+      <p>Google sign-in authorizes the installed rclone application to connect to my Google Drive. Rclone runs on my computer and sends file-management requests directly to Google's services.</p>
+      <p>The Google Drive permission allows rclone to list, read, download, create, update, and delete files as needed for the operations I choose. Opening and editing files in the mounted folder can download local copies and upload changes to Drive.</p>
+      <h2>Privacy and control</h2>
+      <p>These web pages provide information about the application. They do not receive Drive files or Google OAuth credentials. See the <a href="./rclone-privacy.html">privacy policy</a> for details about access, local storage, and revoking permission.</p>
+      <p>Google access can be revoked through <a href="https://myaccount.google.com/connections">Google Account connections</a>.</p>
+      <h2>Contact</h2>
+      <p>For questions about this personal application, contact Eduardo Mena at <a href="mailto:edujxa@gmail.com">edujxa@gmail.com</a>.</p>
+    </main>
+    <footer class="footer"><span>rcclone · Personal use</span><a href="./rclone-privacy.html">Privacy policy</a></footer>
+  </div>
+</body>
+</html>
